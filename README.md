@@ -16,7 +16,7 @@ three categories: ${\color{orange}Classes}$, ${\color{green}Widgets}$ and ${\col
   
 * I will also include possible additions that you can make to make the plugin to build upon it
 
-Now lets take a closer look t each individual file that we have here:
+Now lets take a closer look at each individual file that we have here:
 
 # C++ Classes
 
@@ -222,7 +222,7 @@ In a nutshell, this is what the function does:
 7. Otherwise, we return the location directly down from where the item spawned
 
 This function is crucial in preventing situations like items dropping through walls or other inaccessible areas. Items themselves will simulate physics and will have gravity enabled, so dropping something of a ledge
-is not a problem.
+is not a problem. The other issue we also avoid is if we were checking just the final location, we couldn't be certain that the entire path is clear and this can lead to massive problems.
 
 ${\color{green}Useful \ Addition:}$
 
