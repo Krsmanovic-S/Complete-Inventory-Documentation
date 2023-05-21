@@ -365,6 +365,6 @@ add it to every actor that should generate items.
 
 You can also add item drops to your enemies, just add an inventory component to them, generate their items from a data table and integrate something similar to the chest's DropAllItems event.
 
-__
+___
 
 That will be all for now, I know this was a hefty read but I hope you learned something and can start building upon all of this. Thank you for getting my plugin and I hope it serves you well 😉
