@@ -1,36 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Complete Inventory Plugin Documentation](#complete-inventory-plugin-documentation)
-- [TOC](#toc)
-- [C++ Classes](#c-classes)
-  - [Inventory Component](#inventory-component)
-  - [Item Actor](#item-actor)
-  - [Item Struct](#item-struct)
-  - [Item Use Definitions](#item-use-definitions)
-- [Widgets](#widgets)
-  - [WGB Inventory](#wgb-inventory)
-  - [WGB Inventory Slot](#wgb-inventory-slot)
-  - [WGB Player Inventory](#wgb-player-inventory)
-  - [WGB Container Inventory](#wgb-container-inventory)
-  - [WGB Split Widget](#wgb-split-widget)
-  - [WGB Item Tooltip](#wgb-item-tooltip)
-  - [WGB Drag And Drop](#wgb-drag-and-drop)
-- [Regular Blueprints](#regular-blueprints)
-  - [BP Chest](#bp-chest)
-  - [BP Item Actor](#bp-item-actor)
-  - [BFL Functions](#bfl-functions)
-- [Plugin Installation and Integration](#plugin-installation-and-integration)
-  - [First Step](#first-step)
-  - [Integrating the HUD](#integrating-the-hud)
-  - [Adding Character Variables](#adding-character-variables)
-  - [Implementing Input](#implementing-input)
-  - [Changing Character Variable Type](#changing-character-variable-type)
-- [What Can You Add to This?](#what-can-you-add-to-this)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Complete Inventory Plugin Documentation
 
 Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
@@ -52,7 +19,38 @@ Without further ado, lets begin with all the features as well as what this plugi
 
 ___
 
-# TOC
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [C++ Classes](#c-classes)
+  - [Inventory Component](#inventory-component)
+  - [Item Actor](#item-actor)
+  - [Item Struct](#item-struct)
+  - [Item Use Definitions](#item-use-definitions)
+  
+- [Widgets](#widgets)
+  - [WGB Inventory](#wgb-inventory)
+  - [WGB Inventory Slot](#wgb-inventory-slot)
+  - [WGB Player Inventory](#wgb-player-inventory)
+  - [WGB Container Inventory](#wgb-container-inventory)
+  - [WGB Split Widget](#wgb-split-widget)
+  - [WGB Item Tooltip](#wgb-item-tooltip)
+  - [WGB Drag And Drop](#wgb-drag-and-drop)
+ 
+- [Regular Blueprints](#regular-blueprints)
+  - [BP Chest](#bp-chest)
+  - [BP Item Actor](#bp-item-actor)
+  - [BFL Functions](#bfl-functions)
+  
+- [Plugin Installation and Integration](#plugin-installation-and-integration)
+  - [First Step](#first-step)
+  - [Integrating the HUD](#integrating-the-hud)
+  - [Adding Character Variables](#adding-character-variables)
+  - [Implementing Input](#implementing-input)
+  - [Changing Character Variable Type](#changing-character-variable-type)
+- [What Can You Add to This?](#what-can-you-add-to-this)
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ___
 
 Now lets take a look at everything inside in a project planning style scheme:
