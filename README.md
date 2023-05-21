@@ -1,7 +1,5 @@
 # Complete Inventory Plugin Documentation
 
-<p>Some Markdown text with <span style="color:blue">some <em>blue</em> text</span>.</p
-
 Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
 a great foundation for similar systems like Crafting and Shops. Here we will have an in-depth look at all of the code as well as plugin integration
 into your own project. In this first section, I will show you the general principles of this plugin and how all the classes and blueprints interact with each other.
@@ -229,3 +227,21 @@ ${\color{green}Useful \ Addition:}$
 * The 'not found location' scenario depends a lot on what kind of game you have, and you could tweak this to better suit your situation
 
 # Integration
+
+First and foremost, lets get the plugin files to your project. Navigate to your Unreal Engine install path and go into the Engine/Plugins folder for your engine version. There you will find my plugin (folder name is
+'CompleteInventory'). To keep it very clean and short, here is what you need to do step by step:
+
+1. Create a 'Plugins' folder in your own project (capitalization is important)
+2. Copy over those files from the Engine/Plugin folder into your 'Plugins' folder
+3. Load your project and go to the 'Edit' Tab
+4. Click Plugins and search for 'CompleteInventory'
+5. Enable the Plugin, restart the editor and compile everything
+
+Okay so with that we have gotten this plugin into your project, what now? Well now it is just a matter of replacing everything that is 'default' to the plugin with your own actors and UI.
+
+* You will be modifying the files of the plugin but since you are doing it in the 'Plugins' folder, the original files
+in the engine will remain the same. If something goes wrong just delete the plugins folder and repeat the above steps,
+you will get fresh files and there should not be any problem
+
+## Player Character Swap
+
