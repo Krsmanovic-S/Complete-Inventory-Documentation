@@ -2,9 +2,22 @@
 
 Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
 a great foundation for similar systems like Crafting and Shops. Here we will have an in-depth look at all of the code as well as plugin integration
-into your own project. In this first section, I will show you the general principles of this plugin and how all the classes and blueprints interact with each other.
+into your own project. In this first section, I will first list all the features and following that I'll show you the general principles of this 
+plugin and how all the classes and blueprints interact with each other.
 
-Without further ado, lets begin with a project planning style scheme:
+Without further ado, lets begin with all the features as well as what this plugin can offer you:
+* Slot based system
+* Data table driven item creation
+* Moving/Swapping/Merging/Splitting items
+* Ability to stack items and configure the maximum stack
+* Interaction between multiple inventories
+* Picking up items from the ground
+* Having currency inside the inventory
+* Dropping items from the inventory
+* Nothing in Event Tick, blueprint casting reduced to a minimum
+* Clean code that is easily expandable
+
+Now lets take a look at everything inside in a project planning style scheme:
 
 ![InventoryPluginLayout](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/b4e379c8-b18b-412d-b999-ebda3523de69)
 
