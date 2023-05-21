@@ -1,3 +1,30 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Complete Inventory Plugin Documentation](#complete-inventory-plugin-documentation)
+- [C++ Classes](#c-classes)
+  - [Inventory Component](#inventory-component)
+  - [Item Actor](#item-actor)
+  - [Item Struct](#item-struct)
+  - [Item Use Definitions](#item-use-definitions)
+- [Widgets](#widgets)
+  - [WGB Inventory](#wgb-inventory)
+  - [WGB Inventory Slot](#wgb-inventory-slot)
+  - [WGB Player Inventory](#wgb-player-inventory)
+  - [WGB Container Inventory](#wgb-container-inventory)
+  - [WGB Split Widget](#wgb-split-widget)
+  - [WGB Item Tooltip](#wgb-item-tooltip)
+  - [WGB Drag And Drop](#wgb-drag-and-drop)
+- [Regular Blueprints](#regular-blueprints)
+  - [BP Chest](#bp-chest)
+  - [BP Item Actor](#bp-item-actor)
+  - [BFL Functions](#bfl-functions)
+- [Integration](#integration)
+  - [Player Character Swap](#player-character-swap)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Complete Inventory Plugin Documentation
 
 Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
