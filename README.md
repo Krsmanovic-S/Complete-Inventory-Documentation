@@ -1,8 +1,25 @@
+# Complete Inventory Plugin Documentation
+
+Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
+a great foundation for similar systems like Crafting and Shops. Here we will have an in-depth look at all of the code as well as plugin integration
+into your own project. In this first section, I will first list all the features and following that I'll show you the general principles of this 
+plugin and how all the classes and blueprints interact with each other.
+
+Without further ado, lets begin with all the features as well as what this plugin can offer you:
+* Slot based system
+* Data table driven item creation
+* Moving/Swapping/Merging/Splitting items
+* Ability to stack items and configure the maximum stack
+* Interaction between multiple inventories
+* Picking up items from the ground
+* Having currency inside the inventory
+* Dropping items from the inventory
+* Nothing in Event Tick, blueprint casting reduced to a minimum
+* Clean code that is easily expandable
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Complete Inventory Plugin Documentation](#complete-inventory-plugin-documentation)
+**Table of Contents**
 - [C++ Classes](#c-classes)
   - [Inventory Component](#inventory-component)
   - [Item Actor](#item-actor)
@@ -24,25 +41,7 @@
   - [Player Character Swap](#player-character-swap)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Complete Inventory Plugin Documentation
-
-Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
-a great foundation for similar systems like Crafting and Shops. Here we will have an in-depth look at all of the code as well as plugin integration
-into your own project. In this first section, I will first list all the features and following that I'll show you the general principles of this 
-plugin and how all the classes and blueprints interact with each other.
-
-Without further ado, lets begin with all the features as well as what this plugin can offer you:
-* Slot based system
-* Data table driven item creation
-* Moving/Swapping/Merging/Splitting items
-* Ability to stack items and configure the maximum stack
-* Interaction between multiple inventories
-* Picking up items from the ground
-* Having currency inside the inventory
-* Dropping items from the inventory
-* Nothing in Event Tick, blueprint casting reduced to a minimum
-* Clean code that is easily expandable
+___
 
 Now lets take a look at everything inside in a project planning style scheme:
 
