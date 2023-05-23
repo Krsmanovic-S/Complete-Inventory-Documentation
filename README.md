@@ -165,7 +165,7 @@ In this first part we need to do all the required initialization. Keep note of t
 After this we need to determine where did we drop the item. Is it even on any slot? If it is, does that slot have an item? Are we trying to split the item? These are the questions we need to answer until we decide
 what to do with the item. Finally, after resolving all of that, this is where we handle the appropriate interaction for the drop:
 
-![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/7e31602a-6f56-44d7-a514-646827e98313)
+![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/09562abf-f0be-4497-abb9-8ebcde1ff4a8)
 
 These functions provide the [Inventory Component](#inventory_component) class with the appropriate information and call its respective method for what needs to be done (MoveItemToEmptySlot, SwapItems etc..).
 Splitting is handled by the [WGB Split Widget](#split_widget).
