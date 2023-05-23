@@ -224,6 +224,9 @@ to split and buttons to confirm or cancel our decision. The text displayed here 
 * Supports splitting into an empty slot and also into a non-empty slot that has the same item
 * Disables the inventory grid while visible, there is no need to execute unnecessary code while this is active
 
+One thing to note is that this widget will take into account not to overflow the maximum stack of the item in the split to slot, if that item exists. Before every split we set the maximum value of the slider as well
+as its step size to properly limit how much can be split.
+
 <a name="tooltip"></a>
 ## WGB Item Tooltip
 
