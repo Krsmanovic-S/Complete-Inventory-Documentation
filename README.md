@@ -11,6 +11,7 @@ Without further ado, lets begin with all the features as well as what this plugi
 * Moving/Swapping/Merging/Splitting items
 * Ability to stack items and configure the maximum stack
 * Interaction between multiple inventories
+* Many shortcuts for common UI interactions (transfers, dropping, all with a single click)
 * Picking up items from the ground
 * Having currency inside the inventory
 * Dropping items from the inventory
@@ -126,6 +127,8 @@ Now for the actual stats of the items. How do we add new stats to this? Well the
 
 4. Use the stat when doing other calculations (depends on your project of course)
 
+The **ItemRowStruct** that you can see in the header is just for easily looking up items in the data table. You can easily edit stuff in blueprints with it for whenever you want to add a specific item to an inventory or for debugging purposes.
+
 <a name="item_uses"></a>
 ## Item Use Definitions
 
@@ -183,7 +186,7 @@ function and this will conclude our drag and drop operation.
 ## WGB Inventory Slot
 
 Widget representing an individual slot inside the inventory. The [Inventory Widget](#inventory_widget) is the one that creates this one and assigns its position in the grid. Here however, we handle stuff 
-like detecting a drag, using an item and halving a stack. The dragging and using is connected to the mouse, while halving is connected to a variable in the Player Character. Every slot knows which 
+like detecting a drag, using an item and implementing shotcuts for interaction. Code for the halving of the stack, transfering between inventories and dropping items with a single click is all in here. The dragging and using is connected to the mouse, while halving is connected to a variable in the Player Character. Every slot knows which 
 inventory it belongs to and uses the [Tooltip Widget](#tooltip) of the inventory to display the tooltip upon hovering with the mouse.
 
 How does dragging work? Well it works as foolows:
@@ -219,13 +222,10 @@ Blueprint for the chest is where this is initialized and used, so look there for
 ## WGB Split Widget
 
 Responsible for performing splits for the inventory widget. Every inventory has just one instance of this widget that is constructed once and just updated when necessary. We use the slider to adjust the amount we want
-to split and buttons to confirm or cancel our decision. The text displayed here is how much will be in each stack if you decide to split and that text is of course updated every time the slider value changes.
+to split and buttons to confirm or cancel our decision. The text displayed here is how much will be in each stack if you decide to split and that text is of course updated every time the slider value changes. Sliding is set up to be snapping rather than gliding over, the amount of snapping determined of course by how much we can move the slider. The maximal amount of movement depends on several factors, like are we splitting into an empty slot or, if we are not, what is the stack of the other item? This is to prevent overflowing other items by adding more to them than their allowed stack.
 
 * Supports splitting into an empty slot and also into a non-empty slot that has the same item
 * Disables the inventory grid while visible, there is no need to execute unnecessary code while this is active
-
-One thing to note is that this widget will take into account not to overflow the maximum stack of the item in the split to slot, if that item exists. Before every split we set the maximum value of the slider as well
-as its step size to properly limit how much can be split.
 
 <a name="tooltip"></a>
 ## WGB Item Tooltip
@@ -236,10 +236,12 @@ the slots just update it and make it visible/hidden when necessary. Customize th
 * The tooltip uses a map variable from the [Inventory Class](#inventory_component) to represent the stats as text in a certain format. If you want them to display as percentages make sure to add it to the ${\color{orange}InitializeTooltipMap()}$ method in the inventory class
 * Stat creation is done by creating WGB Individual Stat widgets for every single stat, this widget is just a simple text block
 
+This tooltip widget is only created once per inventory and just updated depending on which slot we are hovering over. Slots are responsibe for calling methods in this widget in order to update its display.
+
 <a name="drag_and_drop"></a>
 ## WGB Drag And Drop
 
-Created by the [Inventory Slot](#inventory_slot) whenever the user starts dragging. The only thing we have here are actually the variables that we need to 'carry' in the drag. WGB Drag Visual is just as its name implies, the visual representation of the item being dragged.
+Created by the [Inventory Slot](#inventory_slot) whenever the user starts dragging. The only thing we have here are actually the variables that we need to 'carry' in the drag. WGB Drag Visual is just as its name implies, the visual representation of the item being dragged. If you wanted to, for example, change how the dragging looks, you would just need to edit the WGB Drag Visual and that would be all.
 
 * This is automatically destroyed when the dragging operation ends (some widget handles the OnMouseDrop event)
 
@@ -249,7 +251,7 @@ Created by the [Inventory Slot](#inventory_slot) whenever the user starts draggi
 <a name="chest"></a>
 ## BP Chest
 
-As the name implies, this is just a basic blueprint of a chest. Its purpose is to store items and interact with the UI of the Player. Chest interaction is just a simple overlap check with the box that is in front
+As the name implies, this is just a basic blueprint of a chest. Its purpose is to store items and interact with the UI of the Player. Each chest's inventory can of course be customized in both size and what it holds. You can set this gloabally for all chests but also edit it per instance in the world. Chest interaction is just a simple overlap check with the box that is in front
 of it. This can only happen with the Player character. Upon overlapping, the following happens:
 
 1. We first need to pass the chest's inventory to the WGB Container Inventory from the Player's HUD
