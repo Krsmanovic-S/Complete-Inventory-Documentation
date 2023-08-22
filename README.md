@@ -1,9 +1,8 @@
 # Complete Inventory Plugin Documentation
 
-Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic RPG-style inventory system and also
+Welcome to the Complete Inventory plugin! What is this plugin? Well the shortest explanation would be a classic slot-based inventory system and also
 a great foundation for similar systems like Crafting and Shops. Here we will have an in-depth look at all of the code as well as plugin integration
-into your own project. In this first section, I will first list all the features and following that I'll show you the general principles of this 
-plugin and how all the classes and blueprints interact with each other.
+into your own project! 🙂
 
 Without further ado, let us begin:
 
