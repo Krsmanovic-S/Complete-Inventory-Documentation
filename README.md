@@ -5,18 +5,7 @@ a great foundation for similar systems like Crafting and Shops. Here we will hav
 into your own project. In this first section, I will first list all the features and following that I'll show you the general principles of this 
 plugin and how all the classes and blueprints interact with each other.
 
-Without further ado, lets begin with all the features as well as what this plugin can offer you:
-* Slot based system
-* Data table driven item creation
-* Moving/Swapping/Merging/Splitting items
-* Ability to stack items and configure the maximum stack
-* Interaction between multiple inventories
-* Many shortcuts for common UI interactions (transfers, dropping, all with a single click)
-* Picking up items from the ground
-* Having currency inside the inventory
-* Dropping items from the inventory
-* Nothing in Event Tick, blueprint casting reduced to a minimum
-* Clean code that is easily expandable
+Without further ado, let us begin:
 
 ___
 
@@ -111,23 +100,20 @@ The core logic is not here in C++ but rather in the blueprint of this class, but
 <a name="item_struct"></a>
 ## Item Struct
 
-Here we describe the underlying struct that we will use to represent items in our game. Any kind of relevant information that items need to have goes here.
+Here we describe the underlying struct that we will use to represent items in our game. Any kind of relevant information that items need to have goes here. If you want to add any specific property
+to your items that isn't there, simply add your variable to it and re-compile the code. 
 
-${\color{green}Useful \ Addition:}$
-	
-* If you want your item actors to look like the item that they are carrying, you can add a *UStaticMeshComponent* here and then use that in the [Item Actor](#item_actor) class to set its mesh in BeginPlay
+Now for the actual stats of the items. How do we add new stats to this? Well the process is fairly simple, we just add them to the struct like so:
 
-Now for the actual stats of the items. How do we add new stats to this? Well the process is as follows:
+![AddingStats](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/a523bb38-33a3-42d4-882a-1d8676c47fb0)
 
-1. Create a variable in the struct to represent the stat (e.g. float CriticalDamage)
+After adding your variable (i.e. float CriticalDamage), we should add this to the InitializeTooltipMap() method from Helper Functions:
 
-2. Handle the addition/removal in the ${\color{orange}ApplyEquipmentStats()}$ method in the inventory (e.g. Player->pCriticalDamage += Item.CriticalDamage)
+![TooltipFunction](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/e3edaf92-1a92-4fe0-b4c1-7fbaac587dc3)
 
-3. Add the appropriate text in the ${\color{orange}InitializeTooltipMap()}$ method in the [Inventory Class](#inventory_component) (e.g. {" Critical Damage", TooltipItem.CriticalDamage})
+And that is all, we have a new stat!
 
-4. Use the stat when doing other calculations (depends on your project of course)
-
-The **ItemRowStruct** that you can see in the header is just for easily looking up items in the data table. You can easily edit stuff in blueprints with it for whenever you want to add a specific item to an inventory or for debugging purposes.
+* The **ItemRowStruct** that you can see in the header is just for easily looking up items in the data table. You can easily edit stuff in blueprints with it for whenever you want to add a specific item to an inventory or for debugging purposes.
 
 <a name="item_uses"></a>
 ## Item Use Definitions
@@ -140,7 +126,7 @@ Do you want a specific item to be 'Usable' by actors? If yes, this is the place 
 
 3. We look for the appropriate method for this item
 
-4. Call the method
+4. Call the method if we found it, if there is no 'Use' implementation then nothing happens
 
 The methods for the items do not have to be C++ functions, they can also be Blueprint Events. In the case of the latter, make sure you implement said events in the blueprint of this class,
 otherwise the item will simply do nothing! The reason for doing it like this is that it makes every item flexible. Maybe you don't want to lose one instance of the item upon usage, maybe some other item
@@ -148,6 +134,43 @@ loses 5 per use etc.. All of this is easily addable through this class and does 
 
 * I have set it up so that only the inventory of the player character will have this set, every other will not. This is just so the items cannot be used outside of his inventory
 * Some items, like equipment for example, can share a method for using them. For example the used equipment will just try to be equipped
+
+If you want to use Blueprint Function exclusively for this, just call the blueprint version of the **Master Function** and connect the logic there.
+
+* I've included a way you can do this using the *Names of the Items to call Functions by Name in Blueprints*, this is a pretty straitforward method of 'using' items
+
+## Helper Function Library
+
+This is a Blueprint Function Library that contains plugin-specific functions that make the job in Blueprints much easier. Most of them are simple utility functions like checking if two items are the same, retrieving Item Structs from their Data Table and so on. The biggest part here is the method for calculating drop spaces for items:
+
+![ItemDropFunc](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/2b95621b-6245-491d-ae79-e9fc11815adb)
+
+There is a lot of math happening there so I am going to try to simplify it as much as I can. In a nutshell, this is what the function does:
+
+1. First we need to grab the extent of the Item Actor that is being dropped - this is relevant because items can be of different mesh sizes and we need to take this into account when deciding the width of the trace
+
+2. Following that, we need to find out where the ground is - this is done with a simple trace from the origin of the actor who threw the item to -9999 on the Z axis
+
+- You may need to change this value to **9999** if your world's Z axis is flipped for some reason
+
+3. The middle point between the ground and the start of that trace + the height is where our main box trace starts
+
+4. We generate a random distance that we want to throw the item to
+
+5. Using that distance and the Random Unit Vector, we can calculate where our box trace ends
+
+6. And finally, if that box traces does not hit anything, that is the location we return. Otherwise, we return the location directly down from where the item spawned
+
+This function is crucial in preventing situations like items dropping through walls or other inaccessible areas. Items themselves will simulate physics and will have gravity enabled, so dropping something of a ledge is not a problem. The other issue we also avoid is if we were checking just the final location, we couldn't be certain that the entire path is clear and this can lead to massive problems.
+
+${\color{green}Useful \ Addition:}$
+
+* The 'not found location' scenario depends a lot on what kind of game you have, and you could tweak this to better suit your situation
+
+The other very important function is the ${\color{orange}InitializeTooltipMap()}$ one. This is where we explain how each stat should be described in the tooltip. If you decide to add a new stat to your items,
+you should go in here as well to add the appropriate string that will be used to display said stat in the tooltips.
+
+* This is called by the **WGB_Tooltip** every time a new item needs to be initialized for it to display.
 
 # Widgets
 
@@ -160,21 +183,21 @@ In this widget we have all the event binding that we need (remember those C++ de
 This widget is responsible for creating all the slots for itself. All that is based on the underlying inventory component that is connected to this widget (each inventory can be of different sizes and different
 column count). The main part about it is of course handling the *OnMouseDropEvent* that we have whenever an item is dropped here. Lets take a closer look a that function:
 
-![Capture1](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/7d136d02-78bf-480d-8186-0ed86f5925f5)
+![OnMouseDrop_1](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/855d7cbf-13bb-49fd-a93f-ef2bf9d2fca6)
 
 In this first part we need to do all the required initialization. Keep note of the **WhereItemCameFrom** variable, this is needed to enable the cross-inventory interaction and it is set by the
 [WGB Inventory Slot](#inventory_slot) upon detecting a drag. We are also using a custom blueprint for the drag and drop so we need to perform a cast to access all of its variables.
 
-After this we need to determine where did we drop the item. Is it even on any slot? If it is, does that slot have an item? Are we trying to split the item? These are the questions we need to answer until we decide
-what to do with the item. Finally, after resolving all of that, this is where we handle the appropriate interaction for the drop:
+After this we simply pass all the required information to the **OnItemDropped** C++ method from the [Inventory Component](#inventory_component) Class:
 
-![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/09562abf-f0be-4497-abb9-8ebcde1ff4a8)
+![OnMouseDrop_2](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/8366b6db-b436-447e-8bd1-a7fa671fb3d5)
 
-These functions provide the [Inventory Component](#inventory_component) class with the appropriate information and call its respective method for what needs to be done (MoveItemToEmptySlot, SwapItems etc..).
-Splitting is handled by the [WGB Split Widget](#split_widget).
+From there the function will perform the appropriate action depending on some checks (did we want to merge, split, move etc..).
 
-* Note that for the splits, the widget has to access certain variables in the Player Character blueprint, you will have to add these variables to your own character to make it work but don't worry,
-we go in detail about this in the [Integration](#integration) section
+Splitting is handled by the [WGB Split Widget](#split_widget) and it begins by calling the **OnSplittingInitialized** delegate. This
+delegate is hooked up in this widget blueprint as follows:
+
+![Splitting](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/aeacd6e5-f75b-45d1-bc9d-82e041c95c21)
 
 As you may be wondering, well where is the dropping function for items? It exists here in the blueprint, but it does not use it. Well we do use that event but only in the HUD widget. Whenever we drop an item 
 outside this widget, it will not get the *OnMouseDrop* event. Instead, the event will be fired in the underlying widget, which in our case is the HUD. That HUD will then handle the event and call the dropping
@@ -187,7 +210,7 @@ function and this will conclude our drag and drop operation.
 
 Widget representing an individual slot inside the inventory. The [Inventory Widget](#inventory_widget) is the one that creates this one and assigns its position in the grid. Here however, we handle stuff 
 like detecting a drag, using an item and implementing shotcuts for interaction. Code for the halving of the stack, transfering between inventories and dropping items with a single click is all in here. The dragging and using is connected to the mouse, while halving is connected to a variable in the Player Character. Every slot knows which 
-inventory it belongs to and uses the [Tooltip Widget](#tooltip) of the inventory to display the tooltip upon hovering with the mouse.
+inventory it belongs to and uses the [Tooltip Widget](#tooltip) variable of the WGB_Inventory to display the tooltip upon hovering with the mouse.
 
 How does dragging work? Well it works as foolows:
 
@@ -199,14 +222,21 @@ How does dragging work? Well it works as foolows:
 
 4. Releasing the drag will cause the underlying widget (the one that is right below the drop location) to recieve a *OnMouseDrop* event
 
+![SlotDragging](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/1743e888-1000-46d3-bd50-aab9e6613f52)
+
 Each slot can also be assigned to **accept only items of a certain category**. This is set only for equipment slots in the [WGB_Player_Inventory](#player_inventory_widget), but can be used for other stuff as well.
 This determines what category of item can be in this slot, anything else will be rejected. If set to 'None', it means that the slot accepts every item regardless of its category.
 
 <a name="player_inventory_widget"></a>
 ## WGB Player Inventory
 
-Here we have the widget that we put onto our HUD. It contains the regular [WGB Inventory](#inventory_widget) but also some equipment slots for the Player. The only function we have here is to initialize 
-the equipment slots, which means adding them to the underlying inventory widget's array of slots and giving them the appropriate index.
+Here we have the widget that we put onto our HUD. It contains the regular [WGB Inventory](#inventory_widget) but also some equipment slots for the Player. We initialize 
+the equipment slots, which means adding them to the underlying inventory widget's array of slots and giving them the appropriate index. Only other function is to create a Open/Close method for this widget
+which is bound to the **OnInventoryOpened** delegate for the underlying inventory component that this widget represents:
+
+![PlayerInventoryOpen](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/804647aa-0694-4ecb-a666-2b51b9a7dd2e)
+
+This is what gets called whenever the appropriate Player Input is triggered.
 
 <a name="container_widget"></a>
 ## WGB Container Inventory
@@ -216,7 +246,9 @@ also transfer items with dragging like usual, the system supports cross inventor
 
 * This is why we need the **WhereItemCameFrom** variable from our [BP_DragAndDrop](#drag_and_drop), when transfering from the container to the main inventory we need to know which inventory the item came from
 
-Blueprint for the chest is where this is initialized and used, so look there for more detail on how we get to it showing up on the HUD.
+Chests interact with this widget by using the **BPI_WidgetInteraction** interface where they call these two methods:
+
+![ContainerInterface](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/e6c3b2c3-f162-4501-88ba-70b75c15b15f)
 
 <a name="split_widget"></a>
 ## WGB Split Widget
@@ -233,9 +265,8 @@ to split and buttons to confirm or cancel our decision. The text displayed here 
 Here we have our tooltip that shows up when we hover over the slots. Its purely cosmetical and its only purpose is to display appropriate item information to the user. Each inventory has one instance of this widgets and 
 the slots just update it and make it visible/hidden when necessary. Customize this in the UMG editor to your liking, I've included a basic design but you should tailor it to your needs.
 
-* The tooltip uses a map variable from the [Inventory Class](#inventory_component) to represent the stats as text in a certain format. If you want them to display as percentages make sure to add it to the ${\color{orange}InitializeTooltipMap()}$ method in the inventory class
-* Stat creation is done by creating WGB Individual Stat widgets for every single stat, this widget is just a simple text block
-
+* The tooltip uses a method from the **Helper Functions** class to get the appropriate infromation for display, this includes a map where the first part is the stat name and the second its value
+  
 This tooltip widget is only created once per inventory and just updated depending on which slot we are hovering over. Slots are responsibe for calling methods in this widget in order to update its display.
 
 <a name="drag_and_drop"></a>
@@ -261,29 +292,32 @@ of it. This can only happen with the Player character. Upon overlapping, the fol
 3. Lastly we just need to make it visible and also open the inventory of the Player if it wasn't opened already
 
 From this point all the interaction is UI based, however I also included the option that the chests just drop all items upon overlapping. This, alongside what is in the chest's inventory, can be set on each instance
-of it in the world, or just defaulted across all of them using the DefaultItems array from the Inventory Class.
+of it in the world, or just defaulted across all of them using the DefaultItems array from the Inventory Class:
+
+![ChestComp](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/841a2992-a54b-4f5d-aaac-8e553d890c5b)
 
 <a name="item_actor"></a>
 ## BP Item Actor
 
-Adding an item to an inventory happens when the Player overlaps with this actor. In the case of everything being added (nothing was left over) the actor is destroyed, otherwise it still remains in the world. The biggest
-thing that we have here is the Drop Effect. I'd like to say more about it as it could confuse many people.
-
-The drop effect happens using a spline component. This component will have three points that the item will follow:
+Adding an item to an inventory happens when the Player overlaps with this actor. In the case of everything being added (nothing was left over) the actor is destroyed, otherwise it still remains in the world. The biggest thing that we have here is the Drop Effect. The drop effect happens using a spline component. This component will have three points that the item will follow:
 
 1. The starting location of this actor (wherever it was spawned), this is set to the origin of the actor who 'threw' the item away
 
-2. The final location which is generated by the ${\color{orange}Find \ Location \ For \ Item \ Drop}$ method inside the [BFL functions](#bfl) blueprint
+2. The final location which is generated by the ${\color{orange}Find \ Item \ Drop \ Location}$ method inside the [BFL functions](#bfl) blueprint
 
 3. Middle point between the first two locations
 
 This drop effect only happens on items that are spawned via code, the ones placed in the world will not have this. It is important to note that the collision on this actor is set to identify it as a **World Dynamic** object. You can edit the time required for the drop in a simple variable in this blueprint, and also the maximum height it can reach.
 
-* This height is basically just a value used to calculate the highest point the item will reach when performing a drop. This is relevant so that we can determine the size of the trace for it in the ${\color{orange}Find \ Location \ For \ Item \ Drop}$ method
+* This height is basically just a value used to calculate the highest point the item will reach when performing a drop. This is relevant so that we can determine the size of the trace for it in the ${\color{orange}Find \ Drop \ Location}$ method from the Helper Functions class.
 
 ${\color{green}Useful \ Addition:}$
 
 * You may not want the **WorldDynamic** type and prefer to use a custom collision channel, which you of course can. Just don't forget to set up that channel correctly.
+
+The actor has a default mesh assigned to it that will be used in case the item it is representing does not have a specific mesh connected to it. I highly recommend setting this to something:
+
+![ItemActorMesh](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/23c57875-8a49-4ba0-9655-880e368eec6b)
 
 <a name="bfl"></a>
 ## BFL Functions
@@ -308,10 +342,6 @@ In a nutshell, this is what the function does:
 
 This function is crucial in preventing situations like items dropping through walls or other inaccessible areas. Items themselves will simulate physics and will have gravity enabled, so dropping something of a ledge
 is not a problem. The other issue we also avoid is if we were checking just the final location, we couldn't be certain that the entire path is clear and this can lead to massive problems.
-
-${\color{green}Useful \ Addition:}$
-
-* The 'not found location' scenario depends a lot on what kind of game you have, and you could tweak this to better suit your situation
 
 <a name="integration"></a>
 # Plugin Installation and Integration
@@ -347,66 +377,36 @@ you will get fresh files and there should not be any problem
 
 ## First Step
 
-Lets begin the integration shall we? This includes stuff like replacing the references from the **BP_CompleteInventoryCharacter** to your own, setting up the HUD,
-adding some variables and connecting the input. Before we touch anything, just simply add the Inventory Component to your character like this:
+Lets begin by adding an Inventory Component to your Player or any other Actor that you wish to use it on:
 
-![Capture4](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/96f27f2d-971b-41f4-ace3-5db7dbb5439f)
+![AddingInventoryComp](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/f5588567-3447-4984-bfdf-10a729c40935)
+
+You can then customize the component by selecting it and going over to the details panel:
+
+![InventoryCustomization](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/7e639364-a2af-4805-b1ae-c5f73705669d)
 
 ## Integrating the HUD
 
-What you want to do with you HUD is pretty simple, just add the WGB Player Inventory widget and the WGB Container Inventory widget to it and implement this part in your HUD's BeginPlay:
+What you want to do with you HUD is pretty simple, just add the WGB Player Inventory widget and the WGB Container Inventory widget to it and implement the **OnMouseDrop** event for it like so:
 
-![Capture2](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/7df36c05-e55c-4cdd-8ba6-3607043d4160)
+![HUD_Drop](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/eac85800-1ae0-433f-8572-a934927745cc)
 
-* Note of course that the **OwningPlayer** variable has to be your own character blueprint, I will list all the spots for this later on
+You can literally copy over the same thing we have in the WGB_HUD. If you do not want to drop items by dragging them onto the HUD, you can skip this part completely!
 
-* The Health Bar is of course purely optional, it was just for demonstration purposes for using items
+## Adding New Items
 
-## Adding Character Variables
+Adding Items is as simple as creating a new row in the Item Data Table like so:
 
-Go to your character blueprint and add these variables (change the HUD variable to your own HUD or use this one if
-you don't have one):
+![ItemAdding](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/e91d306f-d15a-41a8-9212-b667e8f495ea)
 
-![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/111c7897-02e6-4872-b460-cb91af108aed)
-
-* Don't forget to **initialize your HUD** in the BeginPlay, for reference take a look at the BeginPlay of the plugin character
+When you add a new row, fill out the information below and you have your first custom item!
 
 ## Implementing Input
 
 As for the input it depends whether you are using *Enhanced Input* or not. My plugin goes along the Enhanced Input path but you can easily also not use it. If that is the case,
-you will need to replace the EI events with a 'Key Pressed' event or your own **Action Mapping**. To connect the new inputs simply do the following:
+you will need to replace the EI events with a 'Key Pressed' event or your own **Action Mapping**. To connect the new inputs simply copy over the following section from the **BP_CompleteInventoryCharacter**:
 
-1. Open your mapping context (for the plugin it is called IMC_Default, look for something similar)
-
-2. Add **three** new mappings and assign them IA_SplitItem, IA_HalveStack and IA_OpenInventory
-
-3. Assign some different keys if you do not like the preset ones
-
-4. Done!
-
-Now that we have that up its time to copy over the input events. Copy the following into your character blueprint:
-
-![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/fb3e3a8c-91dc-46f2-894e-4771ab47909a)
-
-![Capture1](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/e762a884-743c-420a-a409-20b9ab16f426)
-
-Connect your variables to the input events like in the pictures.
-
-## Changing Character Variable Type
-
-Finally, lets see in which files you will need to change the variable type of the plugin character to your own:
-
-1. Inside **WGB Inventory**, change **PlayerReference** as well as the **'Cast To'** node in BeginPlay
- 
-2. Same as above but in the **WGB Container Inventory** (also in BeginPlay for this widget) 
-
-3. In **BP_ItemUseDefinitions** change **PlayerReference** 
-
-4. Update the **PlayerReference** variable in the **ConstructItemUseBlueprint** method of the WGB Inventory
-
-5. Change the **Player** variable in BP_Chest and update **'Cast To'** node in BeginPlay
-
-* When you change these variables, you will need to reconnect the pins for the nodes where the variabe was used.
+![Input](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/49f8252b-e999-449d-af57-2f4ec3ebeb9c)
 
 This concludes the integration and you should be able to play around with it 🙂
 
