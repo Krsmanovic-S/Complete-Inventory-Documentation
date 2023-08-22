@@ -66,13 +66,14 @@ are **not inside** the Event Tick, but rather set up using **custom delegates** 
   is very useful for updating the UI to any new changes for this component
 	
 If you want to test out some new items, you can always edit the **Default Items** variable when you attach this component to a pawn. There you can specify what items you
-want that pawn to start with. The selection in that array is an FVector2D, where the first number represents the row to look for in a data table (the actual item) and
-the second number is how big will its stack be. Note that you can't add over an items limit, in that case it will just default to the maximum stack.
-
-* Adding new items is just adding a row to the ItemDataTable, just make sure you fill out all the information for that row
+want that pawn to start with. Note that you can't add over an items limit, in that case it will just default to the maximum stack.
 
 Equipment slots are set only for Pawns, in our case just the Player for starters. They are only relevant for stat handling and should be only used for pawns that
 have the UI to display them (in our case it is the [WGB Player Inventory](#player_inventory_widget)).
+
+* If you are adding new equipment slots, make sure to add a new variable for its index inside the inventory:
+
+![EquipmentIndexes](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/6282ccd3-93cd-428f-997b-eaa06be8110d)
 	
 Stats are handled in the ${\color{orange}ApplyEquipmentStats()}$ method. This is where you would put your code that assigns stats to a pawn or some component that they have.
 If you prefer to do that in blueprints, just replace every call (find and replace option in your IDE) of this method with the ${\color{orange}BlueprintApplyEquipmentStats()}$ 
