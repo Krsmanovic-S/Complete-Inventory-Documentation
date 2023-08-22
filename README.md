@@ -103,7 +103,7 @@ Now for the actual stats of the items. How do we add new stats to this? Well the
 
 ![AddingStats](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/a523bb38-33a3-42d4-882a-1d8676c47fb0)
 
-After adding your variable (i.e. float CriticalDamage), we should add this to the InitializeTooltipMap() method from Helper Functions:
+After adding your variable (i.e. float CriticalDamage), we should add this to the InitializeTooltipMap() method from [Helper Functions](#helper-function-library):
 
 ![TooltipFunction](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/e3edaf92-1a92-4fe0-b4c1-7fbaac587dc3)
 
@@ -261,7 +261,7 @@ to split and buttons to confirm or cancel our decision. The text displayed here 
 Here we have our tooltip that shows up when we hover over the slots. Its purely cosmetical and its only purpose is to display appropriate item information to the user. Each inventory has one instance of this widgets and 
 the slots just update it and make it visible/hidden when necessary. Customize this in the UMG editor to your liking, I've included a basic design but you should tailor it to your needs.
 
-* The tooltip uses a method from the **Helper Functions** class to get the appropriate infromation for display, this includes a map where the first part is the stat name and the second its value
+* The tooltip uses a method from the [Helper Functions](#helper-function-library) class to get the appropriate infromation for display, this includes a map where the first part is the stat name and the second its value
   
 This tooltip widget is only created once per inventory and just updated depending on which slot we are hovering over. Slots are responsibe for calling methods in this widget in order to update its display.
 
@@ -305,7 +305,7 @@ Adding an item to an inventory happens when the Player overlaps with this actor.
 
 This drop effect only happens on items that are spawned via code, the ones placed in the world will not have this. It is important to note that the collision on this actor is set to identify it as a **World Dynamic** object. You can edit the time required for the drop in a simple variable in this blueprint, and also the maximum height it can reach.
 
-* This height is basically just a value used to calculate the highest point the item will reach when performing a drop. This is relevant so that we can determine the size of the trace for it in the ${\color{orange}Find \ Drop \ Location}$ method from the Helper Functions class.
+* This height is basically just a value used to calculate the highest point the item will reach when performing a drop. This is relevant so that we can determine the size of the trace for it in the ${\color{orange}Find \ Item \ Drop \ Location}$ method from the [Helper Functions](#helper-function-library) class.
 
 ${\color{green}Useful \ Addition:}$
 
