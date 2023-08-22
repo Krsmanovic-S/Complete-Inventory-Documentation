@@ -31,14 +31,11 @@ ___
 - [Regular Blueprints](#regular-blueprints)
   - [BP Chest](#bp-chest)
   - [BP Item Actor](#bp-item-actor)
-  - [BFL Functions](#bfl-functions)
   
 - [Plugin Installation and Integration](#plugin-installation-and-integration)
   - [First Step](#first-step)
   - [Integrating the HUD](#integrating-the-hud)
-  - [Adding Character Variables](#adding-character-variables)
   - [Implementing Input](#implementing-input)
-  - [Changing Character Variable Type](#changing-character-variable-type)
 - [What Can You Add to This?](#what-can-you-add-to-this)
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ___
@@ -318,30 +315,6 @@ ${\color{green}Useful \ Addition:}$
 The actor has a default mesh assigned to it that will be used in case the item it is representing does not have a specific mesh connected to it. I highly recommend setting this to something:
 
 ![ItemActorMesh](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/23c57875-8a49-4ba0-9655-880e368eec6b)
-
-<a name="bfl"></a>
-## BFL Functions
-
-The only key function here that we will look at closely is the ${\color{orange}Find \ Location \ For \ Item \ Drop}$. There is a lot of math happening there so I am going to try to simplify it as much as I can.
-In a nutshell, this is what the function does:
-
-1. First we need to grab the extent of the Item Actor that is being dropped - this is relevant because items can be of different mesh sizes and we need to take this into account when deciding the width of the trace
-
-2. Following that, we need to find out where the ground is - this is done with a simple trace from the origin of the actor who threw the item to -9999 on the Z axis
-	* You may need to change this value to 9999 if your world's Z axis is flipped for some reason
-
-3. The middle point between the ground and the start of that trace + the height is where our main box trace starts
-
-4. We generate a random distance that we want to throw the item to
-
-5. Using that distance and the Random Unit Vector, we can calculate where our box trace ends
-
-6. And finally, if that box traces does not hit anything, that is the location we return
-
-7. Otherwise, we return the location directly down from where the item spawned
-
-This function is crucial in preventing situations like items dropping through walls or other inaccessible areas. Items themselves will simulate physics and will have gravity enabled, so dropping something of a ledge
-is not a problem. The other issue we also avoid is if we were checking just the final location, we couldn't be certain that the entire path is clear and this can lead to massive problems.
 
 <a name="integration"></a>
 # Plugin Installation and Integration
