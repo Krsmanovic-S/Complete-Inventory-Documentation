@@ -17,7 +17,7 @@ ___
   - [Item Actor](#item-actor)
   - [Item Struct](#item-struct)
   - [Item Use Definitions](#item-use-definitions)
-  
+  - [Helper Function Library](#helper-function-library)
 - [Widgets](#widgets)
   - [WGB Inventory](#wgb-inventory)
   - [WGB Inventory Slot](#wgb-inventory-slot)
@@ -26,16 +26,16 @@ ___
   - [WGB Split Widget](#wgb-split-widget)
   - [WGB Item Tooltip](#wgb-item-tooltip)
   - [WGB Drag And Drop](#wgb-drag-and-drop)
- 
 - [Regular Blueprints](#regular-blueprints)
   - [BP Chest](#bp-chest)
   - [BP Item Actor](#bp-item-actor)
-  
 - [Plugin Installation and Integration](#plugin-installation-and-integration)
   - [First Step](#first-step)
   - [Integrating the HUD](#integrating-the-hud)
+  - [Adding New Items](#adding-new-items)
   - [Implementing Input](#implementing-input)
 - [What Can You Add to This?](#what-can-you-add-to-this)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ___
 
