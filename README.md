@@ -379,7 +379,11 @@ When you add a new row, fill out the information below and you have your first c
 As for the input it depends whether you are using *Enhanced Input* or not. My plugin goes along the Enhanced Input path but you can easily also not use it. If that is the case,
 you will need to replace the EI events with a 'Key Pressed' event or your own **Action Mapping**. To connect the new inputs simply copy over the following section from the **BP_CompleteInventoryCharacter**:
 
-![Input](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/49f8252b-e999-449d-af57-2f4ec3ebeb9c)
+![Input](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/74b29cdf-15f5-4ae1-862f-ec9b81878952)
+
+After the input, the only other thing you need to do is change one variable to the character you are using in your game. You can find this function in the **WGB_Inventory**:
+
+![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/6a15aceb-1bcd-4b88-948d-e2737951c584)
 
 This concludes the integration and you should be able to play around with it 🙂
 
