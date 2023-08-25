@@ -385,6 +385,10 @@ After the input, the only other thing you need to do is change one variable to t
 
 ![Capture](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/6a15aceb-1bcd-4b88-948d-e2737951c584)
 
+Lastly, add the widgets present inside **WGB_HUD** into your own HUD if you have one. Copy over the **On Drop** method into your own HUD and we are done!
+
+- This last part is only required if you want to have item dropping by dragging them onto the HUD space, if you do not want this, feel free to skip this
+
 This concludes the integration and you should be able to play around with it 🙂
 
 # What Can You Add to This?
