@@ -74,6 +74,15 @@ As for the input it depends whether you are using *Enhanced Input* or not. My pl
 
 This concludes the integration and you can start playing around with everything 🙂
 
+## Adding the Plugin Module
+
+Before trying to work with files from the plugin, you should include the plugin module to your project's **Build.cs** file like so:
+
+![BuildCS_File](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/2eac1709-a3ca-4ea6-959f-c0cd254eccb8)
+
+After doing this you can include headers, declare variables and call methods from the plugin without any issues. If you get linking
+errors when trying to do the above things, that means that you forgot to add the plugin module to your build.cs file.
+
 # What Can You Add to This?
 
 Here I am going to mention some things that come to my mind when thinking about expanding on this plugin:
