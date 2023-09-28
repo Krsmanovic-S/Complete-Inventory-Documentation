@@ -76,6 +76,15 @@ Adding Items is as simple as creating a new row in the Item Data Table like so:
 
 When you add a new row, fill out the information below and you have your first custom item!
 
+## Adding New Stats
+
+For stats, there are just two things you need to do, first is to declare the stat that you desire inside the **FItemStruct** and
+the second is to add the appropriate map entry in the following function:
+
+![TooltipMap](https://github.com/Krsmanovic-S/Complete-Inventory-Documentation/assets/103185975/cb8292c2-e8e2-46f8-a2a3-fd8eac7ec8f6)
+
+This is how you stat will be displayed in the item tooltip widget.
+
 ## Implementing Input
 
 As for the input it depends whether you are using *Enhanced Input* or not. My plugin goes along the Enhanced Input path but you can easily also not use it. If that is the case, you will need to replace the EI events with a 'Key Pressed' event or your own **Action Mapping**. To connect the new inputs you should first **add new inputs in your own IMC_MappingContext** and then simply copy over the following section from the **BP_CompleteInventoryCharacter**:
