@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Complete Inventory Plugin Documentation](#complete-inventory-plugin-documentation)
+- [Plugin Installation and Integration](#plugin-installation-and-integration)
+  - [First Step](#first-step)
+  - [Integrating the HUD](#integrating-the-hud)
+  - [Adding New Items](#adding-new-items)
+  - [Implementing Input](#implementing-input)
+  - [Adding the Plugin Module](#adding-the-plugin-module)
+- [What Can You Add to This?](#what-can-you-add-to-this)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Complete Inventory Plugin Documentation
 
 Welcome to the Complete Inventory plugin documentation! Here we will have a look at how you should integrate this plugin in your project and
