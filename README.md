@@ -9,8 +9,6 @@ ___
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 - [Plugin Installation and Integration](#plugin-installation-and-integration)
-
-- [Plugin Installation and Integration](#plugin-installation-and-integration)
   - [First Step](#first-step)
   - [Integrating the HUD](#integrating-the-hud)
   - [Adding New Items](#adding-new-items)
