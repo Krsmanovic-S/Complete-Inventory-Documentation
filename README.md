@@ -1,18 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Complete Inventory Plugin Documentation](#complete-inventory-plugin-documentation)
-- [Plugin Installation and Integration](#plugin-installation-and-integration)
-  - [First Step](#first-step)
-  - [Integrating the HUD](#integrating-the-hud)
-  - [Adding New Items](#adding-new-items)
-  - [Implementing Input](#implementing-input)
-  - [Adding the Plugin Module](#adding-the-plugin-module)
-- [What Can You Add to This?](#what-can-you-add-to-this)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Complete Inventory Plugin Documentation
 
 Welcome to the Complete Inventory plugin documentation! Here we will have a look at how you should integrate this plugin in your project and
@@ -21,6 +6,16 @@ I will show you how to do some common stuff within the plugin! 🙂
 Without further ado, let us begin:
 ___
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+- [Plugin Installation and Integration](#plugin-installation-and-integration)
+  - [First Step](#first-step)
+  - [Integrating the HUD](#integrating-the-hud)
+  - [Adding New Items](#adding-new-items)
+  - [Implementing Input](#implementing-input)
+  - [Adding the Plugin Module](#adding-the-plugin-module)
+- [What Can You Add to This?](#what-can-you-add-to-this)
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ___
 
 
@@ -121,5 +116,5 @@ add it to every actor that should generate items.
 
 ___
 
-That will be all for now, I hope you the plugin will serve you well. For any support issues be sure to come over to my discord channel
+That will be all for now, I hope you the plugin will serve you well. For any support issues be sure to come over to my [discord](https://discord.gg/yrFwH5rMrN) channel
 where you can ask me anything you want about the plugin. Thank you for getting my plugin, have a nice day 😉
