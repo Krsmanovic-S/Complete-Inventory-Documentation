@@ -9,12 +9,16 @@ ___
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 - [Plugin Installation and Integration](#plugin-installation-and-integration)
+
+- [Plugin Installation and Integration](#plugin-installation-and-integration)
   - [First Step](#first-step)
   - [Integrating the HUD](#integrating-the-hud)
   - [Adding New Items](#adding-new-items)
+  - [Adding New Stats](#adding-new-stats)
   - [Implementing Input](#implementing-input)
   - [Adding the Plugin Module](#adding-the-plugin-module)
 - [What Can You Add to This?](#what-can-you-add-to-this)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ___
 
